@@ -7,7 +7,7 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        Semaphore operator = new Semaphore(3);
+        Semaphore operator = new Semaphore(3, true); //создаем объект семафор с 3 и справедливой очередью
 
         Customer customer1 = new Customer("Иван");
         Customer customer2 = new Customer("Алексей");
@@ -20,10 +20,10 @@ public class Runner {
         customer4.operator = operator;
 
 
-        for (Customer customer : Arrays.asList(customer1, customer2, customer3,customer4)) {
+        for (Customer customer : Arrays.asList(customer1, customer2, customer3,customer4)) { //запускаем потоки
             customer.start();
         }
 
-        customer1.start();
+
     }
 }
