@@ -1,41 +1,30 @@
 package com.company;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.Semaphore;
+
 public class Customer extends Thread {
-    private final String customerName;
-    Operator operator;
+    Semaphore operator;
 
     public Customer(String name) {
-        this.customerName = name;
-        this.operator = operator;
-        start();
-
+        this.name = name;
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void startCall(Operator operator) {
-        if (operator.isOperatorBusy()) {
-            System.out.println(this.customerName + " звонит в Колл Центр");
-        }
-    }
+    public String name;
 
 
-    public void endCall() {
-        System.out.println(this.customerName + " завершил звонок");
-    }
 
     @Override
     public void run() {
-        if (operator != null && operator.isOperatorBusy()) {
-            try {
-                startCall(operator);
-                wait(5000);
-                endCall();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        System.out.println(this.name + " ждет свободного оператора");
+        try {
+            operator.acquire();
+            System.out.println(this.name + " разговаривает с оператором");
+            System.out.println(this.name + " закончил разговор");
+            operator.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
