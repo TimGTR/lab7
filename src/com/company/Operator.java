@@ -1,23 +1,20 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Operator extends Thread {
 
-    Customer customer;
     private final int operatorNumber;
+    Customer customer;
     private boolean isBusy;
+
+    public Operator(int operatorNumber) {
+        this.operatorNumber = operatorNumber;
+        this.customer = customer;
+        start();
+    }
 
     public boolean isOperatorBusy() {
         return isBusy;
     }
-
-    public Operator(int operatorNumber) {
-        this.operatorNumber = operatorNumber;
-        start();
-    }
-
 
     public int getOperatorNumber() {
         return operatorNumber;
@@ -37,8 +34,7 @@ public class Operator extends Thread {
                 notifyAll();
             }
 
-
         }
     }
-
 }
+

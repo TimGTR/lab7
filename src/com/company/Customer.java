@@ -6,7 +6,9 @@ public class Customer extends Thread {
 
     public Customer(String name) {
         this.customerName = name;
+        this.operator = operator;
         start();
+
     }
 
     public String getCustomerName() {
