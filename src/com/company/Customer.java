@@ -1,21 +1,24 @@
 package com.company;
 
 public class Customer extends Thread {
+    private final String customerName;
+    Operator operator;
 
     public Customer(String name) {
         this.customerName = name;
         start();
     }
-    private final String customerName;
 
     public String getCustomerName() {
         return customerName;
     }
 
-
-    public void startCall() {
-        System.out.println(this.customerName + " звонит в Колл Центр");
+    public void startCall(Operator operator) {
+        if (operator.isOperatorBusy()) {
+            System.out.println(this.customerName + " звонит в Колл Центр");
+        }
     }
+
 
     public void endCall() {
         System.out.println(this.customerName + " завершил звонок");
@@ -23,9 +26,14 @@ public class Customer extends Thread {
 
     @Override
     public void run() {
-
-        startCall();
-
-
+        if (operator != null && operator.isOperatorBusy()) {
+            try {
+                startCall(operator);
+                wait(5000);
+                endCall();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

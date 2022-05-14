@@ -3,15 +3,13 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Operator extends Thread{
+public class Operator extends Thread {
 
+    Customer customer;
     private final int operatorNumber;
-
     private boolean isBusy;
 
-    List<Thread> operators = new ArrayList<>();
-
-    public boolean isOperatorBusy()  {
+    public boolean isOperatorBusy() {
         return isBusy;
     }
 
@@ -27,21 +25,20 @@ public class Operator extends Thread{
 
     @Override
     public void run() {
-        while (!isBusy) {
-            System.out.println("Оператор №" + operatorNumber + " обслуживает клиента ");
-            try {
-                sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (customer != null) {
+            while (!isBusy) {
+                System.out.println("Оператор №" + operatorNumber + " обслуживает клиента " + customer.getCustomerName());
+                try {
+                    sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                isBusy = true;
+                notifyAll();
             }
-            isBusy = true;
+
+
         }
-
-
     }
-
-
-
-
 
 }
