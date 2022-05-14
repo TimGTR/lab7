@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Operator extends Thread{
 
-    private int operatorNumber;
+    private final int operatorNumber;
 
-    private boolean operatorState;
+    private boolean isBusy;
 
     List<Thread> operators = new ArrayList<>();
 
     public boolean isOperatorBusy()  {
-        return operatorState;
+        return isBusy;
     }
 
     public Operator(int operatorNumber) {
@@ -27,17 +27,14 @@ public class Operator extends Thread{
 
     @Override
     public void run() {
-        while (operatorState) {
+        while (!isBusy) {
             System.out.println("Оператор №" + operatorNumber + " обслуживает клиента ");
-            operatorState = true;
-
             try {
-                sleep(50000);
-                notify();
+                sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            operatorState = false;
+            isBusy = true;
         }
 
 

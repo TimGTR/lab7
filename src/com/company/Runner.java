@@ -6,10 +6,11 @@ import java.util.List;
 public class Runner {
 
     public static void main(String[] args) {
-        List<Operator> operators = new ArrayList<>();
-        for(int i = 1; i < 4; i++) {
-            operators.add(new Operator(i));
-        }
+
+        Operator operator1 = new Operator(1);
+        Operator operator2 = new Operator(2);
+        Operator operator3 = new Operator(3);
+
 
 
 

@@ -6,14 +6,14 @@ public class Customer extends Thread {
         this.customerName = name;
         start();
     }
-    private String customerName;
+    private final String customerName;
 
     public String getCustomerName() {
         return customerName;
     }
 
 
-    public void startCall() throws InterruptedException {
+    public void startCall() {
         System.out.println(this.customerName + " звонит в Колл Центр");
     }
 
@@ -24,13 +24,7 @@ public class Customer extends Thread {
     @Override
     public void run() {
 
-        try {
-            startCall();
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        startCall();
 
 
     }
